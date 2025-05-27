@@ -1,7 +1,7 @@
 
 # 🧠 Event Buddy — NestJS Event Booking System
-<p align="center"> <img src="https://nestjs.com/img/logo-small.svg" alt="NestJS Logo" width="100"/> </p> <h2 align="center">Event Buddy</h2> <p align="center"> A scalable event booking system built with <b>NestJS</b>, <b>PostgreSQL</b>, and <b>TypeORM</b>. </p>
 
+An advanced **NestJS** backend application for managing events and bookings with secure authentication, PostgreSQL database relations, and comprehensive API documentation using Swagger.
 
 
 ---
