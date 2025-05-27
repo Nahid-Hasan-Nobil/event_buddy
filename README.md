@@ -31,14 +31,6 @@ This project is a RESTful API for an event booking system. It allows:
 
 ---
 
-## Prerequisites
-
-* Node.js (v16 or higher)
-* PostgreSQL (v12 or higher recommended)
-* npm or yarn package manager
-
----
-
 ## Installation & Setup
 
 1. **Clone the repository**
@@ -52,8 +44,7 @@ This project is a RESTful API for an event booking system. It allows:
 
    ```bash
    npm install
-   # or
-   yarn install
+  
    ```
 
 3. **Configure environment variables**
@@ -92,27 +83,6 @@ This project is a RESTful API for an event booking system. It allows:
 
    Explore and test the API endpoints interactively.
 
----
-
-## Running Tests
-
-* Unit tests
-
-  ```bash
-  npm run test
-  ```
-
-* E2E tests
-
-  ```bash
-  npm run test:e2e
-  ```
-
-* Test coverage report
-
-  ```bash
-  npm run test:cov
-  ```
 
 ---
 
@@ -183,14 +153,98 @@ Contributions are welcome! Feel free to submit issues or pull requests to improv
 
 ---
 
+
+# 🛠 PostgreSQL Setup & Database Export Guide (Event Buddy Project)
+
+This project uses **PostgreSQL** as the database with **TypeORM** for ORM and schema management. Below is how I set up and handled the database configuration and export for this project.
+
+---
+
+## ✅ PostgreSQL Setup
+
+Follow these steps to set up the PostgreSQL database used in this project:
+
+### 1. Install PostgreSQL
+
+Download and install PostgreSQL from the official site:
+👉 [https://www.postgresql.org/download/](https://www.postgresql.org/download/)
+
+### 2. Create the Database
+
+After installation, log in to PostgreSQL and create a new database named `event_buddy`:
+
+```sql
+CREATE DATABASE event_buddy;
+```
+
+### 3. Environment Configuration
+
+I used environment variables to configure the database connection. Create a `.env` file in the project root (or use the `.env.example` provided) and set the following:
+
+```env
+DB_HOST=localhost
+DB_PORT=5432
+DB_USERNAME=your_postgres_username
+DB_PASSWORD=your_postgres_password
+DB_NAME=event_buddy
+```
+
+> ⚠️ Make sure to replace `your_postgres_username` and `your_postgres_password` with your actual PostgreSQL credentials.
+
+### 4. TypeORM Configuration
+
+The database is automatically synchronized with entity definitions via TypeORM:
+
+```ts
+TypeOrmModule.forRoot({
+  type: 'postgres',
+  host: process.env.DB_HOST,
+  port: +process.env.DB_PORT,
+  username: process.env.DB_USERNAME,
+  password: process.env.DB_PASSWORD,
+  database: process.env.DB_NAME,
+  autoLoadEntities: true,
+  synchronize: true,
+});
+```
+
+> 🚨 Note: `synchronize: true` is used only for development to auto-create tables based on entities.
+
+---
+
+## 🧩 Entity Relations Example
+
+I have used TypeORM decorators to define relationships. Here’s a quick example:
+
+```ts
+// Event Entity
+@OneToMany(() => Booking, booking => booking.event)
+bookings: Booking[];
+```
+
+```ts
+// Booking Entity
+@ManyToOne(() => Event, event => event.bookings)
+event: Event;
+```
+
+---
+
+## 📁 Project Structure
+
+The exported files are included under the `db/` directory:
+
+```bash
+📁 event-buddy/
+├── 📁 db/
+│   ├── schema.sql        # DB schema export
+│   └── data.sql          # (Optional) Sample data export
+```
+
+---
+
+
 ## License
-
-
-
-
-
-
-
 
 
 
