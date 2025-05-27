@@ -1,3 +1,204 @@
+
+# Event Booking System API
+
+An advanced **NestJS** backend application for managing events and bookings with secure authentication, PostgreSQL database relations, and comprehensive API documentation using Swagger.
+
+---
+
+## Project Description
+
+This project is a RESTful API for an event booking system. It allows:
+
+* **Users** to register, login, and book seats for events (up to 4 seats per booking).
+* **Admins** to create, update, delete events, and manage users/admins.
+* Role-based access control enforced by JWT authentication.
+* Data validation with `class-validator` on all endpoints.
+* PostgreSQL database for persistent data storage with relational mapping.
+* Swagger API documentation for easy endpoint exploration and testing.
+
+---
+
+## Features
+
+* User registration and login with JWT-based authentication
+* Admin registration, login, and admin management
+* Event CRUD operations (Create, Read, Update, Delete) by admins
+* Booking events by users with seat limits
+* Role-based guards to protect sensitive routes
+* Automatic API documentation via Swagger UI
+* Input validation with detailed error messages
+* Modular, maintainable, and scalable NestJS architecture
+
+---
+
+## Prerequisites
+
+* Node.js (v16 or higher)
+* PostgreSQL (v12 or higher recommended)
+* npm or yarn package manager
+
+---
+
+## Installation & Setup
+
+1. **Clone the repository**
+
+   ```bash
+   git clone https://github.com/yourusername/event-booking-system.git
+   cd event-booking-system
+   ```
+
+2. **Install dependencies**
+
+   ```bash
+   npm install
+   # or
+   yarn install
+   ```
+
+3. **Configure environment variables**
+
+   Create a `.env` file in the root directory and add:
+
+   ```env
+   PORT=3001
+   DATABASE_HOST=localhost
+   DATABASE_PORT=5432
+   DATABASE_USER=your_db_user
+   DATABASE_PASSWORD=your_db_password
+   DATABASE_NAME=your_db_name
+   JWT_SECRET=your_jwt_secret
+   ```
+
+4. **Set up PostgreSQL database**
+
+   * Create the database with the name from `DATABASE_NAME`.
+   * Ensure the user has proper permissions.
+   * Database tables and relations will be created automatically on app startup if sync is enabled in TypeORM configuration.
+
+5. **Run the application**
+
+   ```bash
+   npm run start:dev
+   ```
+
+6. **Access Swagger API documentation**
+
+   Open your browser and navigate to:
+
+   ```
+   http://localhost:3001/api
+   ```
+
+   Explore and test the API endpoints interactively.
+
+---
+
+## Running Tests
+
+* Unit tests
+
+  ```bash
+  npm run test
+  ```
+
+* E2E tests
+
+  ```bash
+  npm run test:e2e
+  ```
+
+* Test coverage report
+
+  ```bash
+  npm run test:cov
+  ```
+
+---
+
+## API Endpoints Summary
+
+| Method | Endpoint            | Description                          | Access      |
+| ------ | ------------------- | ------------------------------------ | ----------- |
+| POST   | `/user/register`    | Register new user                    | Public      |
+| POST   | `/user/login`       | Login user                           | Public      |
+| DELETE | `/user/:id`         | Delete user                          | User (self) |
+| POST   | `/admin/register`   | Register new admin                   | Public      |
+| POST   | `/admin/login`      | Login admin                          | Public      |
+| DELETE | `/admin/:id`        | Delete admin                         | Admin only  |
+| POST   | `/event`            | Create event                         | Admin only  |
+| PUT    | `/event/:id`        | Update event                         | Admin only  |
+| DELETE | `/event/:id`        | Delete event                         | Admin only  |
+| GET    | `/event`            | List all events                      | Admin only  |
+| GET    | `/event/upcoming`   | List upcoming events                 | Public      |
+| GET    | `/event/past`       | List past events                     | Public      |
+| GET    | `/event/:eventName` | Get event details by name            | Public      |
+| POST   | `/booking`          | Book seats for an event              | User only   |
+| GET    | `/booking`          | List bookings for authenticated user | User only   |
+
+---
+
+## Environment Variables
+
+| Variable            | Description                       | Example                  |
+| ------------------- | --------------------------------- | ------------------------ |
+| `PORT`              | Server port                       | 3001                     |
+| `DATABASE_HOST`     | PostgreSQL host                   | localhost                |
+| `DATABASE_PORT`     | PostgreSQL port                   | 5432                     |
+| `DATABASE_USER`     | PostgreSQL user                   | postgres                 |
+| `DATABASE_PASSWORD` | PostgreSQL password               | secret\_password         |
+| `DATABASE_NAME`     | PostgreSQL database name          | event\_booking\_db       |
+| `JWT_SECRET`        | Secret key for signing JWT tokens | your\_super\_secret\_key |
+
+---
+
+## Folder Structure
+
+```
+src/
+ ├── admin/             # Admin module (controller, service, DTOs)
+ ├── auth/              # Authentication & authorization (guards, strategies)
+ ├── booking/           # Booking module (controller, service, DTOs)
+ ├── event/             # Event module (controller, service, DTOs)
+ ├── user/              # User module (controller, service, DTOs)
+ ├── common/            # Shared utilities and decorators
+ ├── main.ts            # Application entry point (Swagger setup here)
+ ├── app.module.ts      # Root application module
+```
+
+---
+
+## Additional Notes
+
+* **Validation:** All incoming requests are validated using `class-validator`. Errors are descriptive.
+* **Security:** JWT tokens are mandatory for protected routes. Role guards ensure proper authorization.
+* **Swagger:** API docs are dynamically generated based on decorators on DTOs and controllers.
+* **Database:** TypeORM manages PostgreSQL connection and schema synchronization.
+
+---
+
+## Contribution
+
+Contributions are welcome! Feel free to submit issues or pull requests to improve the project.
+
+---
+
+## License
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 <p align="center">
   <a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo-small.svg" width="120" alt="Nest Logo" /></a>
 </p>
