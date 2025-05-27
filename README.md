@@ -74,7 +74,9 @@ This project is a RESTful API for an event booking system. It allows:
    npm run start:dev
    ```
 
-6. **Access Swagger API documentation**
+---
+
+## Access Swagger API documentation**
 
    Open your browser and navigate to:
 
